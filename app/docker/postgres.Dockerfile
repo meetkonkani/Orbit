@@ -1,0 +1,5 @@
+FROM postgres:15
+
+ENV POSTGRES_DB=saas_db
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=postgres123

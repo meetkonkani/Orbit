@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  
+  /* Z-Index Registry - The Golden Rule of your layers */
+  --z-bg: 0;
+  --z-noise: 5;
+  --z-content: 10;
+  --z-nav: 8000;
+  --z-modal: 9000;
+  --z-toast: 9500;
+  --z-preloader: 9998;
+  --z-cursor: 999999; /* Absolute Top */
+}
+
+/* --- THEME CONFIGURATION (TAILWIND v4) --- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Animation Definitions */
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-scanline: scanline 4s linear infinite;
+  --animate-glitch: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+}
+
+/* --- GLOBAL STYLES --- */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 1. CURSOR SUPPRESSION - Ensures only CustomCursor is visible */
+@media (pointer: fine) {
+  body, 
+  button, 
+  a, 
+  input, 
+  select, 
+  textarea, 
+  [role="button"] {
+    cursor: none !important;
+  }
+}
+
+/* 2. NOISE OVERLAY - Placed behind content but above 3D */
+.noise-overlay {
+  z-index: var(--z-noise);
+  background-image: url("https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png");
+  background-repeat: repeat;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* 3. SCROLLBAR HIDERS */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 4. LENIS SMOOTH SCROLL SUPPORT */
+html.lenis {
+  height: auto;
+}
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* 5. IMAGE EFFECTS */
+.glitch-image-wrapper:hover img {
+    filter: contrast(150%) brightness(120%);
+}
+
+/* 6. UTILITY TO REMOVE DOUBLE LOGO ON PAGES */
+/* Use this class on any logo inside a page.tsx to hide it when Navbar is present */
+.page-header-logo {
+  display: none !important;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.animate-scanline {
+  animation: scanline 3s linear infinite;
+}
+
+.chromatic {
+  filter: drop-shadow(-2px 0 red) drop-shadow(2px 0 cyan);
+}
